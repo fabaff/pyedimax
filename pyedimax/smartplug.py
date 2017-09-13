@@ -3,6 +3,7 @@ __author__ = 'rohit'
 import requests
 from xml.dom.minidom import getDOMImplementation
 from xml.dom.minidom import parseString
+from requests.auth import HTTPDigestAuth
 
 
 class SmartPlug(object):
@@ -35,6 +36,11 @@ class SmartPlug(object):
         self.url = "http://%s:10000/smartplug.cgi" % host
         self.auth = auth
         self.domi = getDOMImplementation()
+
+        # Make a request to detect if Authentication type is Digest
+        res = requests.head(self.url)
+        if res.headers['WWW-Authenticate'][0:6] == 'Digest':
+            self.auth = HTTPDigestAuth(auth[0], auth[1])
 
     def _xml_cmd_setget_state(self, cmdId, cmdStr):
 
