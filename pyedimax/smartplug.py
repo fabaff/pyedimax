@@ -1,4 +1,4 @@
-__author__ = 'rohit'
+__author__ = 'andreipop'
 
 import requests
 from xml.dom.minidom import getDOMImplementation
@@ -108,12 +108,8 @@ class SmartPlug(object):
 
         files = {'file': xml}
 
-        try:
-            res = requests.post(self.url, auth=self.auth, files=files, timeout=5)
-        except requests.exceptions.Timeout as e:
-            print(e.__str__())
-            return 'FAILED'
-        
+        res = requests.post(self.url, auth=self.auth, files=files)
+
         if res.status_code == requests.codes.ok:
             dom = parseString(res.text)
 
@@ -145,11 +141,7 @@ class SmartPlug(object):
 
         files = {'file': xml}
 
-        try:
-            res = requests.post(self.url, auth=self.auth, files=files, timeout=5)
-        except requests.exceptions.Timeout as e:
-            print(e.__str__())
-            return 'FAILED'
+        res = requests.post(self.url, auth=self.auth, files=files)
 
         if res.status_code == requests.codes.ok:
             dom = parseString(res.text)
@@ -179,6 +171,7 @@ class SmartPlug(object):
         :rtype: str
         :return: 'ON' or 'OFF'
         """
+
         res = self._post_xml(self._xml_cmd_setget_state("get", ""))
 
         if res != "ON" and res != "OFF":
