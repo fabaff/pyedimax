@@ -1,1 +1,6 @@
 .idea
+.pypirc
+install.sh
+dist/
+build/
+pyedimax.egg-info/
