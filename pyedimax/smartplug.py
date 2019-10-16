@@ -1,6 +1,7 @@
 __author__ = 'andreipop'
 
 import requests
+import logging as log
 from xml.dom.minidom import getDOMImplementation
 from xml.dom.minidom import parseString
 from requests.auth import HTTPDigestAuth
@@ -41,6 +42,8 @@ class SmartPlug(object):
         res = requests.head(self.url)
         if res.headers['WWW-Authenticate'][0:6] == 'Digest':
             self.auth = HTTPDigestAuth(auth[0], auth[1])
+
+        self.log = log.getLogger("SmartPlug")
 
     def _xml_cmd_setget_state(self, cmdId, cmdStr):
 
@@ -124,7 +127,7 @@ class SmartPlug(object):
 
             except Exception as e:
 
-                print(e.__str__())
+                self.log.error(e.__str__())
 
         return None
 
@@ -157,7 +160,7 @@ class SmartPlug(object):
 
             except Exception as e:
 
-                print(e.__str__())
+                self.log.error(e.__str__())
 
         return None
 
