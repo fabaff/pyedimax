@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='pyedimax',
-      version='0.2',
+      version='0.2.1',
       description='Interface with Edimax Smart Plugs',
       url='https://github.com/andreipop2005/pyedimax',
       author='Andrei Pop',
